@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#073840">
+  <script src="ChamoApi.js"></script>
+  <script src="ControleAcesso.js"></script>
+  <title>Abrir um ticket — Portal de atendimento</title>
+  <link rel="stylesheet" href="TelaInicial.css">
+  <link rel="stylesheet" href="TelaTickets.css">
+  <link rel="stylesheet" href="TelaNovoTicket.css">
+  <link rel="stylesheet" href="TemaEscuro.css">
+  <script src="Preferencias.js" defer></script>
+  <script src="Perfil.js" defer></script>
+  <script src="Rascunhos.js" defer></script>
+  <script src="TelaNovoTicket.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Navegação principal">
+      <div class="sidebar-header">
+        <a class="sidebar-brand" href="TelaInicial.html" aria-label="Chamô — página inicial">
+          <img class="brand-image brand-logo brand-light" src="assets/brand/chamo-wordmark-green.png" alt="">
+          <img class="brand-image brand-logo brand-dark" src="assets/brand/chamo-wordmark-light.png" alt="">
+          <img class="brand-image brand-mark brand-light" src="assets/brand/chamo-icon-green.png" alt="">
+          <img class="brand-image brand-mark brand-dark" src="assets/brand/chamo-icon-light.png" alt="">
+        </a>
+        <button class="sidebar-toggle" type="button" aria-label="Recolher barra lateral" aria-expanded="true" title="Recolher barra lateral">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6M20 6v12"/></svg>
+        </button>
+      </div>
+      <nav class="main-nav" aria-label="Menu">
+        <a class="nav-link" href="TelaInicial.html">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg>
+          <span>Início</span>
+        </a>
+        <a class="nav-link is-active" href="TelaTickets.html" aria-current="page">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3h6a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1h-6M10 17l5-5-5-5M15 12H3"/></svg>
+          <span>Meus Tickets</span>
+        </a>
+        <a class="nav-link" href="TelaConhecimento.html">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zM8 3v18M16 8h-4M16 12h-4"/></svg>
+          <span>Base de Conhecimento</span>
+        </a>
+        <a class="nav-link" href="TelaNotificacoes.html">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg>
+          <span>Notificações</span><span class="nav-count">2</span>
+        </a>
+        <a class="nav-link" href="TelaConfiguracoes.html">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 13a7.5 7.5 0 0 0 0-2l2-1.5-2-3.5-2.4 1a7.5 7.5 0 0 0-1.7-1L15 3h-6l-.4 3a7.5 7.5 0 0 0-1.7 1l-2.4-1-2 3.5 2 1.5a7.5 7.5 0 0 0 0 2l-2 1.5 2 3.5 2.4-1a7.5 7.5 0 0 0 1.7 1L9 21h6l.4-3a7.5 7.5 0 0 0 1.7-1l2.4 1 2-3.5z"/></svg>
+          <span>Configurações</span>
+        </a>
+      </nav>
+      <button class="profile-button" type="button" aria-label="Abrir opções do perfil" aria-haspopup="menu" aria-expanded="false" data-profile-menu-toggle>
+        <span class="avatar avatar-sidebar" data-profile-avatar>AH</span>
+        <span class="profile-copy"><strong data-profile-name>Arthur Holanda</strong><small>Usuário</small></span>
+        <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5"/></svg>
+      </button>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <form class="search" role="search" action="#">
+          <label class="visually-hidden" for="site-search">Buscar no portal</label>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16 16 4 4"/></svg>
+          <input id="site-search" type="search" placeholder="Buscar por palavras-chave, número do ticket, assunto...">
+          <kbd>⌘ K</kbd>
+        </form>
+        <div class="topbar-actions">
+          <a class="icon-button notification-button" href="TelaNotificacoes.html" aria-label="Notificações, 2 não lidas">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg>
+            <span class="notification-dot"></span>
+          </a>
+          <button class="avatar avatar-top" type="button" aria-label="Perfil" aria-haspopup="menu" aria-expanded="false" data-profile-avatar data-profile-menu-toggle>AH</button>
+        </div>
+      </header>
+
+      <section class="new-ticket-page" aria-labelledby="new-ticket-title">
+        <div class="new-ticket-heading">
+          <div>
+            <nav class="breadcrumbs" aria-label="Trilha de navegação">
+              <a href="TelaInicial.html">Início</a><span aria-hidden="true">/</span><a href="TelaTickets.html">Meus Tickets</a><span aria-hidden="true">/</span><span aria-current="page">Novo ticket</span>
+            </nav>
+            <p class="eyebrow">CENTRAL DE ATENDIMENTO</p>
+            <h1 id="new-ticket-title">Abrir um ticket</h1>
+            <p>Conte o que aconteceu para que a equipe possa ajudar.</p>
+          </div>
+          <a class="back-to-tickets" href="TelaTickets.html">← <span>Voltar para Meus Tickets</span></a>
+        </div>
+
+        <form class="new-ticket-form" id="new-ticket-form" novalidate>
+          <section class="panel form-section" aria-labelledby="details-title">
+            <div class="form-section-heading">
+              <span class="form-step" aria-hidden="true">1</span>
+              <div><h2 id="details-title">Sobre o problema</h2><p>Adicione um título e classifique o chamado.</p></div>
+            </div>
+
+            <label class="form-field title-field" for="ticket-title">
+              <span>Título do ticket <b aria-hidden="true">*</b></span>
+              <input id="ticket-title" name="title" type="text" maxlength="120" placeholder="Ex.: Computador não liga" required>
+              <small>Resuma o problema em poucas palavras.</small>
+            </label>
+
+            <fieldset class="classification-fields">
+              <legend>Classificação do ticket <span aria-hidden="true">*</span></legend>
+              <p class="field-help">Abra cada campo e escolha uma única opção.</p>
+              <div class="classification-grid">
+                <details class="choice-picker" data-choice-picker>
+                  <summary><span class="choice-picker-copy"><small>Tipo do erro</small><strong data-choice-label="error-type">Selecione o tipo</strong></span><span class="picker-chevron" aria-hidden="true"></span></summary>
+                  <div class="choice-options" role="group" aria-label="Tipo do erro">
+                    <label><input type="radio" name="errorType" value="Hardware" required><span>Hardware</span></label>
+                    <label><input type="radio" name="errorType" value="Software"><span>Software</span></label>
+                    <label><input type="radio" name="errorType" value="BIOS / Firmware"><span>BIOS / Firmware</span></label>
+                    <label><input type="radio" name="errorType" value="Rede / Internet"><span>Rede / Internet</span></label>
+                    <label><input type="radio" name="errorType" value="Acesso / Conta"><span>Acesso / Conta</span></label>
+                    <label><input type="radio" name="errorType" value="Outro"><span>Outro</span></label>
+                  </div>
+                </details>
+
+                <details class="choice-picker" data-choice-picker>
+                  <summary><span class="choice-picker-copy"><small>Departamento</small><strong data-choice-label="department">Selecione o departamento</strong></span><span class="picker-chevron" aria-hidden="true"></span></summary>
+                  <div class="choice-options" role="group" aria-label="Departamento">
+                    <label><input type="radio" name="department" value="Tecnologia da Informação" required><span>Tecnologia da Informação</span></label>
+                    <label><input type="radio" name="department" value="Recursos Humanos"><span>Recursos Humanos</span></label>
+                    <label><input type="radio" name="department" value="Financeiro"><span>Financeiro</span></label>
+                    <label><input type="radio" name="department" value="Operações"><span>Operações</span></label>
+                    <label><input type="radio" name="department" value="Comercial"><span>Comercial</span></label>
+                  </div>
+                </details>
+
+                <details class="choice-picker" data-choice-picker>
+                  <summary><span class="choice-picker-copy"><small>Categoria</small><strong data-choice-label="category">Selecione a categoria</strong></span><span class="picker-chevron" aria-hidden="true"></span></summary>
+                  <div class="choice-options" role="group" aria-label="Categoria">
+                    <label><input type="radio" name="category" value="Acesso e Permissões" required><span>Acesso e Permissões</span></label>
+                    <label><input type="radio" name="category" value="Sistemas e Aplicações"><span>Sistemas e Aplicações</span></label>
+                    <label><input type="radio" name="category" value="Equipamentos"><span>Equipamentos</span></label>
+                    <label><input type="radio" name="category" value="Solicitações"><span>Solicitações</span></label>
+                    <label><input type="radio" name="category" value="Outros"><span>Outros</span></label>
+                  </div>
+                </details>
+
+                <details class="choice-picker" data-choice-picker>
+                  <summary><span class="choice-picker-copy"><small>Classificação</small><strong data-choice-label="classification">Selecione a classificação</strong></span><span class="picker-chevron" aria-hidden="true"></span></summary>
+                  <div class="choice-options" role="group" aria-label="Classificação">
+                    <label><input type="radio" name="classification" value="Incidente" required><span>Incidente</span></label>
+                    <label><input type="radio" name="classification" value="Solicitação de serviço"><span>Solicitação de serviço</span></label>
+                    <label><input type="radio" name="classification" value="Dúvida"><span>Dúvida</span></label>
+                    <label><input type="radio" name="classification" value="Alteração"><span>Alteração</span></label>
+                  </div>
+                </details>
+              </div>
+              <p class="classification-error" id="classification-error" role="status" aria-live="polite"></p>
+            </fieldset>
+          </section>
+
+          <section class="panel form-section" aria-labelledby="severity-title">
+            <div class="form-section-heading">
+              <span class="form-step" aria-hidden="true">2</span>
+              <div><h2 id="severity-title">Nível de gravidade</h2><p>Indique o impacto do problema no seu trabalho.</p></div>
+            </div>
+            <fieldset class="severity-options">
+              <legend class="visually-hidden">Selecione o nível de gravidade</legend>
+              <label class="severity-option severity-low">
+                <input type="radio" name="severity" value="Baixo" required>
+                <span class="severity-indicator" aria-hidden="true"></span><span class="severity-copy"><strong>Baixo</strong><small>Impacto pequeno</small></span>
+              </label>
+              <label class="severity-option severity-moderate">
+                <input type="radio" name="severity" value="Moderado">
+                <span class="severity-indicator" aria-hidden="true"></span><span class="severity-copy"><strong>Moderado</strong><small>Afeta parte da rotina</small></span>
+              </label>
+              <label class="severity-option severity-high">
+                <input type="radio" name="severity" value="Alto">
+                <span class="severity-indicator" aria-hidden="true"></span><span class="severity-copy"><strong>Alto</strong><small>Impede uma atividade</small></span>
+              </label>
+              <label class="severity-option severity-critical">
+                <input type="radio" name="severity" value="Muito alto">
+                <span class="severity-indicator" aria-hidden="true"></span><span class="severity-copy"><strong>Muito alto</strong><small>Serviço essencial parado</small></span>
+              </label>
+            </fieldset>
+            <p class="severity-error" id="severity-error" role="status" aria-live="polite"></p>
+          </section>
+
+          <section class="panel form-section" aria-labelledby="description-title">
+            <div class="form-section-heading">
+              <span class="form-step" aria-hidden="true">3</span>
+              <div><h2 id="description-title">Descrição e anexo</h2><p>Inclua detalhes que ajudem a entender e reproduzir o problema.</p></div>
+            </div>
+            <label class="form-field description-field" for="ticket-description">
+              <span>Descrição do problema <b aria-hidden="true">*</b></span>
+              <textarea id="ticket-description" name="description" rows="6" maxlength="3000" placeholder="O que aconteceu? Quando começou? Quais passos você realizou?" required></textarea>
+              <small><span id="description-count">0</span>/3000 caracteres</small>
+            </label>
+
+            <div class="attachment-area">
+              <div class="attachment-heading"><strong>Anexo</strong><span>Opcional · imagem PNG, JPG, GIF ou WebP · até 8 MB</span></div>
+              <label class="attachment-dropzone" for="ticket-attachment">
+                <input id="ticket-attachment" name="attachment" type="file" accept="image/png,image/jpeg,image/gif,image/webp">
+                <span class="attachment-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 16V4m0 0L7 9m5-5 5 5M5 14v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-5"/></svg></span>
+                <span><strong>Escolha uma imagem</strong><small>ou arraste o arquivo até aqui</small></span>
+                <span class="attachment-browse">Procurar</span>
+              </label>
+              <p class="attachment-error" id="attachment-error" role="status" aria-live="polite"></p>
+              <div class="attachment-preview" id="attachment-preview" hidden>
+                <img id="attachment-thumbnail" alt="Pré-visualização do anexo">
+                <span><strong id="attachment-name"></strong><small id="attachment-size"></small></span>
+                <button class="remove-attachment" id="remove-attachment" type="button" aria-label="Remover anexo">Remover</button>
+              </div>
+            </div>
+          </section>
+
+          <div class="form-footer">
+            <p class="required-note"><b aria-hidden="true">*</b> Campos obrigatórios</p>
+            <div class="form-actions">
+              <button class="draft-button" id="save-draft" type="button">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h12l4 4v14H3V3h2ZM7 3v6h10V3M7 21v-7h10v7"/></svg>
+                Salvar rascunho
+              </button>
+              <button class="submit-ticket-button" type="submit">
+                Enviar chamado
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 14 0M13 6l6 6-6 6"/></svg>
+              </button>
+            </div>
+            <p class="form-feedback" id="form-feedback" role="status" aria-live="polite"></p>
+          </div>
+        </form>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

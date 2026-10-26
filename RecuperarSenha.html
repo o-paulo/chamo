@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#073840">
+  <meta name="referrer" content="no-referrer">
+  <title>Recuperar senha — Chamô</title>
+  <link rel="stylesheet" href="TelaInicial.css">
+  <link rel="stylesheet" href="TemaEscuro.css">
+  <link rel="stylesheet" href="TelaLogin.css">
+  <script src="ChamoApi.js"></script>
+  <script src="Preferencias.js" defer></script>
+  <script src="RecuperarSenha.js" defer></script>
+</head>
+<body class="login-page">
+  <main class="login-layout">
+    <section class="login-card" aria-label="Recuperar acesso ao portal Chamô">
+      <div class="login-welcome">
+        <a class="login-brand" href="TelaLogin.html" aria-label="Chamô">
+          <img src="assets/brand/chamo-wordmark-light.png" alt="Chamô">
+        </a>
+        <div class="login-welcome-copy">
+          <p class="login-eyebrow">PORTAL DE ATENDIMENTO</p>
+          <h1>Vamos recuperar seu acesso.</h1>
+          <p>Use o e-mail cadastrado para receber um link seguro de redefinição.</p>
+        </div>
+        <p class="login-welcome-footer">O link expira após uma hora e só pode ser usado uma vez.</p>
+      </div>
+      <div class="login-form-panel">
+        <form class="login-form" id="reset-form">
+          <div class="login-heading">
+            <p class="login-eyebrow">CONTA CHAMÔ</p>
+            <h2 id="reset-heading">Esqueci minha senha</h2>
+            <p id="reset-description">Enviaremos instruções caso o endereço esteja cadastrado.</p>
+          </div>
+          <div class="login-fields" id="reset-fields">
+            <label class="login-field" id="email-field">
+              <span>E-mail</span>
+              <span class="login-input-wrap">
+                <input name="email" type="email" autocomplete="email" maxlength="254" placeholder="voce@exemplo.com" required>
+              </span>
+            </label>
+            <label class="login-field" id="password-field" hidden>
+              <span>Nova senha (mínimo de 12 caracteres)</span>
+              <span class="login-input-wrap"><input name="password" type="password" autocomplete="new-password" minlength="12" maxlength="200"></span>
+            </label>
+            <label class="login-field" id="confirm-field" hidden>
+              <span>Confirme a nova senha</span>
+              <span class="login-input-wrap"><input name="confirmPassword" type="password" autocomplete="new-password" minlength="12" maxlength="200"></span>
+            </label>
+          </div>
+          <button class="login-submit" id="reset-submit" type="submit">Enviar instruções</button>
+          <p class="login-feedback" id="reset-feedback" role="status" aria-live="polite"></p>
+          <p class="login-signup"><a class="text-action" href="TelaLogin.html">Voltar para entrar</a></p>
+        </form>
+        <p class="login-privacy">Seus dados são tratados com segurança.</p>
+      </div>
+    </section>
+    <p class="login-copyright">© 2026 Chamô · Portal de atendimento</p>
+  </main>
+</body>
+</html>

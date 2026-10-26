@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#073840">
+  <title>Área de trabalho — Chamô</title>
+  <script src="ChamoApi.js"></script>
+  <script src="ControleAcesso.js"></script>
+  <link rel="stylesheet" href="TelaInicial.css">
+  <link rel="stylesheet" href="TemaEscuro.css">
+  <link rel="stylesheet" href="ModuloAcesso.css">
+  <script src="Preferencias.js" defer></script>
+  <script src="Perfil.js" defer></script>
+  <script src="ModuloAcesso.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Navegação do módulo">
+      <div class="sidebar-header">
+        <a class="sidebar-brand" href="ModuloAcesso.html" aria-label="Chamô — página inicial">
+          <img class="brand-image brand-logo brand-light" src="assets/brand/chamo-wordmark-green.png" alt="">
+          <img class="brand-image brand-logo brand-dark" src="assets/brand/chamo-wordmark-light.png" alt="">
+          <img class="brand-image brand-mark brand-light" src="assets/brand/chamo-icon-green.png" alt="">
+          <img class="brand-image brand-mark brand-dark" src="assets/brand/chamo-icon-light.png" alt="">
+        </a>
+        <button class="sidebar-toggle" type="button" aria-label="Recolher barra lateral" aria-expanded="true" title="Recolher barra lateral">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6M20 6v12"/></svg>
+        </button>
+      </div>
+      <nav class="main-nav" id="module-nav" aria-label="Menu"></nav>
+      <button class="profile-button module-profile" type="button" aria-label="Abrir opções do perfil" aria-haspopup="menu" aria-expanded="false" data-profile-menu-toggle>
+        <span class="avatar avatar-sidebar" data-profile-avatar data-module-avatar></span>
+        <span class="profile-copy"><strong data-profile-name data-module-name></strong><small data-module-role></small></span>
+        <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5"/></svg>
+      </button>
+    </aside>
+    <main class="main-content">
+      <header class="topbar module-topbar">
+        <p class="module-topbar-label">PORTAL DE ATENDIMENTO · <span data-module-role></span></p>
+        <button class="avatar avatar-top" type="button" aria-label="Perfil" aria-haspopup="menu" aria-expanded="false" data-profile-avatar data-profile-menu-toggle></button>
+      </header>
+      <div id="module-content" class="module-content" aria-live="polite"></div>
+    </main>
+  </div>
+</body>
+</html>

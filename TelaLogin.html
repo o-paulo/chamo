@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#073840">
+  <title>Entrar — Chamô</title>
+  <link rel="stylesheet" href="TelaInicial.css">
+  <link rel="stylesheet" href="TemaEscuro.css">
+  <link rel="stylesheet" href="TelaLogin.css">
+  <script src="ChamoApi.js"></script>
+  <script src="Preferencias.js" defer></script>
+  <script src="TelaLogin.js" defer></script>
+</head>
+<body class="login-page">
+  <main class="login-layout">
+    <section class="login-card" aria-label="Acesso ao portal Chamô">
+      <div class="login-welcome">
+        <div class="login-decoration login-decoration-one" aria-hidden="true"></div>
+        <div class="login-decoration login-decoration-two" aria-hidden="true"></div>
+        <div class="login-dots" aria-hidden="true"></div>
+        <a class="login-brand" href="TelaLogin.html" aria-label="Chamô">
+          <img src="assets/brand/chamo-wordmark-light.png" alt="Chamô">
+        </a>
+
+        <div class="login-welcome-copy">
+          <p class="login-eyebrow">PORTAL DE ATENDIMENTO</p>
+          <h1>Bom ter você<br>por aqui!</h1>
+          <p>Acesse sua conta para acompanhar seus tickets e encontrar a ajuda de que precisa.</p>
+        </div>
+        <p class="login-welcome-footer">Suporte mais simples, do seu jeito.</p>
+      </div>
+
+      <div class="login-form-panel">
+        <form class="login-form" id="login-form">
+          <div class="login-heading">
+            <p class="login-eyebrow">BEM-VINDO(A) DE VOLTA</p>
+            <h2>Entrar</h2>
+            <p>Use seus dados para acessar o portal.</p>
+          </div>
+
+          <div class="login-fields">
+            <label class="login-field">
+              <span>E-mail</span>
+              <span class="login-input-wrap">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M16 12v1a2 2 0 0 0 4 0v-1a8 8 0 1 0-3 6.2"/></svg>
+                <input name="email" type="email" autocomplete="username" placeholder="voce@exemplo.com" required>
+              </span>
+            </label>
+            <label class="login-field">
+              <span>Senha</span>
+              <span class="login-input-wrap">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v3"/></svg>
+                <input id="login-password" name="password" type="password" autocomplete="current-password" placeholder="Digite sua senha" required>
+                <button class="password-toggle" type="button" aria-label="Mostrar senha" aria-pressed="false">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6Z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+              </span>
+            </label>
+          </div>
+
+          <div class="login-options">
+            <label class="remember-option"><input type="checkbox" name="remember"><span>Lembrar de mim</span></label>
+            <a class="text-action" href="RecuperarSenha.html">Esqueci minha senha</a>
+          </div>
+
+          <button class="login-submit" type="submit">Entrar</button>
+          <p class="login-feedback" id="login-feedback" role="status" aria-live="polite"></p>
+          <p class="login-signup">Não possui cadastro? <button class="text-action" type="button" data-show-signup>Criar conta</button></p>
+        </form>
+        <form class="login-form" id="signup-form" hidden>
+          <div class="login-heading">
+            <p class="login-eyebrow">NOVO POR AQUI?</p>
+            <h2>Criar conta</h2>
+            <p>Preencha seus dados para solicitar acesso ao portal.</p>
+          </div>
+
+          <div class="login-fields signup-fields">
+            <label class="login-field">
+              <span>Nome</span>
+              <span class="login-input-wrap"><input name="firstName" maxlength="100" autocomplete="given-name" placeholder="Seu nome" required></span>
+            </label>
+            <label class="login-field">
+              <span>Sobrenome</span>
+              <span class="login-input-wrap"><input name="lastName" maxlength="100" autocomplete="family-name" placeholder="Seu sobrenome" required></span>
+            </label>
+            <label class="login-field">
+              <span>Número de celular</span>
+              <span class="login-input-wrap"><input name="phone" type="tel" inputmode="numeric" pattern="[0-9]{8,15}" minlength="8" maxlength="15" autocomplete="tel" placeholder="Somente números" title="Informe de 8 a 15 números, sem espaços ou símbolos" required></span>
+            </label>
+            <label class="login-field">
+              <span>E-mail</span>
+              <span class="login-input-wrap"><input name="email" type="email" maxlength="254" autocomplete="email" placeholder="voce@chamo.com" required></span>
+            </label>
+            <p class="signup-domain-hint" id="signup-domain-hint">O domínio do e-mail define seu perfil: @chamo.com, @chamo.sup.com ou @chamo.adm.com.</p>
+            <label class="login-field signup-password-field">
+              <span>Senha</span>
+              <span class="login-input-wrap"><input name="password" type="password" minlength="8" maxlength="20" autocomplete="new-password" placeholder="Crie uma senha segura" title="Use de 8 a 20 caracteres, com maiúscula, minúscula, número e caractere especial" required></span>
+            </label>
+            <p class="signup-password-hint">De 8 a 20 caracteres, com letras maiúsculas e minúsculas, número e caractere especial.</p>
+          </div>
+
+          <button class="login-submit" type="submit">Criar conta</button>
+          <p class="login-feedback" id="signup-feedback" role="status" aria-live="polite"></p>
+          <p class="login-signup">Já possui cadastro? <button class="text-action" type="button" data-show-login>Entrar</button></p>
+        </form>
+        <p class="login-privacy">Seus dados são tratados com segurança.</p>
+      </div>
+    </section>
+    <p class="login-copyright">© 2025 Chamô · Portal de atendimento</p>
+  </main>
+</body>
+</html>

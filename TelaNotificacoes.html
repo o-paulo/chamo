@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#073840">
+  <script src="ChamoApi.js"></script>
+  <script src="ControleAcesso.js"></script>
+  <title>Notificações — Portal de atendimento</title>
+  <link rel="stylesheet" href="TelaInicial.css">
+  <link rel="stylesheet" href="TelaNotificacoes.css">
+  <link rel="stylesheet" href="TemaEscuro.css">
+  <script src="Preferencias.js" defer></script>
+  <script src="Perfil.js" defer></script>
+  <script src="TelaNotificacoes.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Navegação principal">
+      <div class="sidebar-header">
+        <a class="sidebar-brand" href="TelaInicial.html" aria-label="Chamô — página inicial">
+          <img class="brand-image brand-logo brand-light" src="assets/brand/chamo-wordmark-green.png" alt="">
+          <img class="brand-image brand-logo brand-dark" src="assets/brand/chamo-wordmark-light.png" alt="">
+          <img class="brand-image brand-mark brand-light" src="assets/brand/chamo-icon-green.png" alt="">
+          <img class="brand-image brand-mark brand-dark" src="assets/brand/chamo-icon-light.png" alt="">
+        </a>
+        <button class="sidebar-toggle" type="button" aria-label="Recolher barra lateral" aria-expanded="true" title="Recolher barra lateral">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6M20 6v12"/></svg>
+        </button>
+      </div>
+
+      <nav class="main-nav" aria-label="Menu">
+        <a class="nav-link" href="TelaInicial.html">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg>
+          <span>Início</span>
+        </a>
+        <a class="nav-link" href="TelaTickets.html">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3h6a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1h-6M10 17l5-5-5-5M15 12H3"/></svg>
+          <span>Meus Tickets</span>
+        </a>
+        <a class="nav-link" href="TelaConhecimento.html">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zM8 3v18M16 8h-4M16 12h-4"/></svg>
+          <span>Base de Conhecimento</span>
+        </a>
+        <a class="nav-link is-active" href="TelaNotificacoes.html" aria-current="page">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg>
+          <span>Notificações</span><span class="nav-count" id="sidebar-unread-count">2</span>
+        </a>
+        <a class="nav-link" href="TelaConfiguracoes.html">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 13a7.5 7.5 0 0 0 0-2l2-1.5-2-3.5-2.4 1a7.5 7.5 0 0 0-1.7-1L15 3h-6l-.4 3a7.5 7.5 0 0 0-1.7 1l-2.4-1-2 3.5 2 1.5a7.5 7.5 0 0 0 0 2l-2 1.5 2 3.5 2.4-1a7.5 7.5 0 0 0 1.7 1L9 21h6l.4-3a7.5 7.5 0 0 0 1.7-1l2.4 1 2-3.5z"/></svg>
+          <span>Configurações</span>
+        </a>
+      </nav>
+
+      <button class="profile-button" type="button" aria-label="Abrir opções do perfil" aria-haspopup="menu" aria-expanded="false" data-profile-menu-toggle>
+        <span class="avatar avatar-sidebar" data-profile-avatar>AH</span>
+        <span class="profile-copy"><strong data-profile-name>Arthur Holanda</strong><small>Usuário</small></span>
+        <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5"/></svg>
+      </button>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <form class="search" role="search" action="#">
+          <label class="visually-hidden" for="site-search">Buscar no portal</label>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16 16 4 4"/></svg>
+          <input id="site-search" type="search" placeholder="Buscar por palavras-chave, número do ticket, assunto...">
+          <kbd>⌘ K</kbd>
+        </form>
+        <div class="topbar-actions">
+          <a class="icon-button notification-button" href="TelaNotificacoes.html" aria-label="Notificações, 2 não lidas" aria-current="page">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg>
+            <span class="notification-dot"></span>
+          </a>
+          <button class="avatar avatar-top" type="button" aria-label="Perfil" aria-haspopup="menu" aria-expanded="false" data-profile-avatar data-profile-menu-toggle>AH</button>
+        </div>
+      </header>
+
+      <div class="notifications-page">
+        <nav class="breadcrumbs" aria-label="Trilha de navegação">
+          <a href="TelaInicial.html">Início</a><span aria-hidden="true">/</span><span aria-current="page">Notificações</span>
+        </nav>
+
+        <section class="notifications-heading">
+          <div>
+            <p class="eyebrow">CENTRAL DE ATUALIZAÇÕES</p>
+            <h1 id="notifications-title">Notificações</h1>
+            <p>Acompanhe novidades e atualizações dos seus chamados.</p>
+          </div>
+          <button class="mark-all-button" id="mark-all-read" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>
+            Marcar todas como lidas
+          </button>
+        </section>
+
+        <section class="notification-overview" aria-label="Resumo das notificações">
+          <article class="notification-overview-card">
+            <span>Total</span><strong id="total-notifications">6</strong><small>notificações recentes</small>
+          </article>
+          <article class="notification-overview-card unread-overview">
+            <span>Não lidas</span><strong id="unread-notifications">2</strong><small>aguardam sua atenção</small>
+          </article>
+          <article class="notification-overview-card">
+            <span>Atualizações de tickets</span><strong>4</strong><small>respostas e mudanças de status</small>
+          </article>
+        </section>
+
+        <section class="panel notification-panel" aria-labelledby="notification-list-title">
+          <div class="notification-panel-heading">
+            <div><h2 id="notification-list-title">Atividade recente</h2><p>Atualizações sobre seus chamados e sua conta</p></div>
+            <span class="visible-notification-count"><strong id="visible-notification-count">6</strong> notificações</span>
+          </div>
+
+          <div class="notification-filters" role="group" aria-label="Filtrar notificações">
+            <button class="notification-filter is-selected" type="button" data-notification-filter="all" aria-pressed="true">Todas <span>6</span></button>
+            <button class="notification-filter" type="button" data-notification-filter="unread" aria-pressed="false">Não lidas <span id="unread-filter-count">2</span></button>
+            <button class="notification-filter" type="button" data-notification-filter="ticket" aria-pressed="false">Tickets <span>4</span></button>
+            <button class="notification-filter" type="button" data-notification-filter="system" aria-pressed="false">Sistema <span>2</span></button>
+          </div>
+
+          <div class="notification-list" id="notification-list">
+            <h3 class="notification-date-heading">Hoje</h3>
+            <article class="notification-item is-unread" data-notification-type="ticket" data-unread="true">
+              <span class="notification-type-icon type-reply" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M20 11.5a7.5 7.5 0 0 1-8 7.5 8 8 0 0 1-3-.6L4 20l1.5-4A7 7 0 0 1 4 11.5 7.5 7.5 0 0 1 12 4a7.5 7.5 0 0 1 8 7.5Z"/><path d="M8 11h8M8 14h5"/></svg>
+              </span>
+              <div class="notification-content">
+                <div class="notification-title-line"><h4>Nova resposta no ticket <a href="TelaTickets.html">#4827</a></h4><span class="unread-indicator" aria-label="Não lida"></span></div>
+                <p>Mariana Costa respondeu: “Estamos analisando o problema de acesso e retornaremos em breve.”</p>
+                <div class="notification-meta"><time datetime="2025-03-26T14:32">Hoje, 14:32</time><span class="notification-kind">Atualização de ticket</span></div>
+              </div>
+              <div class="notification-actions"><a href="TelaTickets.html">Ver ticket</a><button type="button" data-mark-read>Marcar como lida</button></div>
+            </article>
+
+            <article class="notification-item is-unread" data-notification-type="system" data-unread="true">
+              <span class="notification-type-icon type-info" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M12 16v-4M12 8h.01"/><circle cx="12" cy="12" r="9"/></svg>
+              </span>
+              <div class="notification-content">
+                <div class="notification-title-line"><h4>Novos artigos na Base de Conhecimento</h4><span class="unread-indicator" aria-label="Não lida"></span></div>
+                <p>Adicionamos guias de acesso e solução de problemas para ajudar você a resolver dúvidas comuns.</p>
+                <div class="notification-meta"><time datetime="2025-03-26T09:15">Hoje, 09:15</time><span class="notification-kind">Novidade</span></div>
+              </div>
+              <div class="notification-actions"><a href="TelaConhecimento.html">Ver artigos</a><button type="button" data-mark-read>Marcar como lida</button></div>
+            </article>
+
+            <h3 class="notification-date-heading">Ontem</h3>
+            <article class="notification-item" data-notification-type="ticket" data-unread="false">
+              <span class="notification-type-icon type-progress" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+              </span>
+              <div class="notification-content">
+                <div class="notification-title-line"><h4>Seu ticket <a href="TelaTickets.html">#4805</a> está em andamento</h4></div>
+                <p>O chamado sobre o seu equipamento foi encaminhado para a equipe responsável.</p>
+                <div class="notification-meta"><time datetime="2025-03-25T16:45">Ontem, 16:45</time><span class="notification-kind">Status do ticket</span></div>
+              </div>
+              <div class="notification-actions"><a href="TelaTickets.html">Ver ticket</a><button type="button" data-mark-read disabled>Lida</button></div>
+            </article>
+
+            <article class="notification-item" data-notification-type="ticket" data-unread="false">
+              <span class="notification-type-icon type-resolved" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg>
+              </span>
+              <div class="notification-content">
+                <div class="notification-title-line"><h4>Ticket <a href="TelaTickets.html">#4819</a> resolvido</h4></div>
+                <p>Sua solicitação de novo acesso foi concluída. Se precisar, você pode consultar o histórico do chamado.</p>
+                <div class="notification-meta"><time datetime="2025-03-25T10:17">Ontem, 10:17</time><span class="notification-kind">Ticket resolvido</span></div>
+              </div>
+              <div class="notification-actions"><a href="TelaTickets.html">Ver ticket</a><button type="button" data-mark-read disabled>Lida</button></div>
+            </article>
+
+            <h3 class="notification-date-heading">Esta semana</h3>
+            <article class="notification-item" data-notification-type="ticket" data-unread="false">
+              <span class="notification-type-icon type-reply" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M20 11.5a7.5 7.5 0 0 1-8 7.5 8 8 0 0 1-3-.6L4 20l1.5-4A7 7 0 0 1 4 11.5 7.5 7.5 0 0 1 12 4a7.5 7.5 0 0 1 8 7.5Z"/><path d="M8 11h8M8 14h5"/></svg>
+              </span>
+              <div class="notification-content">
+                <div class="notification-title-line"><h4>Atualização no ticket <a href="TelaTickets.html">#4798</a></h4></div>
+                <p>A equipe adicionou uma orientação para resolver sua dúvida sobre o sistema.</p>
+                <div class="notification-meta"><time datetime="2025-03-24T09:12">24 mar, 09:12</time><span class="notification-kind">Atualização de ticket</span></div>
+              </div>
+              <div class="notification-actions"><a href="TelaTickets.html">Ver ticket</a><button type="button" data-mark-read disabled>Lida</button></div>
+            </article>
+
+            <article class="notification-item" data-notification-type="system" data-unread="false">
+              <span class="notification-type-icon type-info" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M12 16v-4M12 8h.01"/><circle cx="12" cy="12" r="9"/></svg>
+              </span>
+              <div class="notification-content">
+                <div class="notification-title-line"><h4>Bem-vindo ao portal de atendimento</h4></div>
+                <p>Agora você pode acompanhar chamados, consultar artigos e receber atualizações por aqui.</p>
+                <div class="notification-meta"><time datetime="2025-03-20T08:30">20 mar, 08:30</time><span class="notification-kind">Aviso do sistema</span></div>
+              </div>
+              <div class="notification-actions"><a href="TelaInicial.html">Ir para o início</a><button type="button" data-mark-read disabled>Lida</button></div>
+            </article>
+          </div>
+
+          <p class="notifications-empty" id="notifications-empty" hidden>Nenhuma notificação corresponde a este filtro.</p>
+          <p class="notification-announcement visually-hidden" id="notification-announcement" role="status" aria-live="polite"></p>
+        </section>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

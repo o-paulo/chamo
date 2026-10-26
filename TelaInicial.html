@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#073840">
+  <title>Início — Portal de atendimento</title>
+  <script src="ChamoApi.js"></script>
+  <script src="ControleAcesso.js"></script>
+  <link rel="stylesheet" href="TelaInicial.css">
+  <link rel="stylesheet" href="TemaEscuro.css">
+  <script src="Preferencias.js" defer></script>
+  <script src="Perfil.js" defer></script>
+  <script src="TelaInicial.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Navegação principal">
+      <div class="sidebar-header">
+        <a class="sidebar-brand" href="TelaInicial.html" aria-label="Chamô — página inicial">
+          <img class="brand-image brand-logo brand-light" src="assets/brand/chamo-wordmark-green.png" alt="">
+          <img class="brand-image brand-logo brand-dark" src="assets/brand/chamo-wordmark-light.png" alt="">
+          <img class="brand-image brand-mark brand-light" src="assets/brand/chamo-icon-green.png" alt="">
+          <img class="brand-image brand-mark brand-dark" src="assets/brand/chamo-icon-light.png" alt="">
+        </a>
+        <button class="sidebar-toggle" type="button" aria-label="Recolher barra lateral" aria-expanded="true" title="Recolher barra lateral">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6M20 6v12"/></svg>
+        </button>
+      </div>
+
+      <nav class="main-nav" aria-label="Menu">
+        <a class="nav-link is-active" href="#" aria-current="page">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg>
+          <span>Início</span>
+        </a>
+        <a class="nav-link" href="TelaTickets.html">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3h6a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1h-6M10 17l5-5-5-5M15 12H3"/></svg>
+          <span>Meus Tickets</span>
+        </a>
+        <a class="nav-link" href="TelaConhecimento.html">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zM8 3v18M16 8h-4M16 12h-4"/></svg>
+          <span>Base de Conhecimento</span>
+        </a>
+        <a class="nav-link" href="TelaNotificacoes.html">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg>
+          <span>Notificações</span><span class="nav-count">2</span>
+        </a>
+        <a class="nav-link" href="TelaConfiguracoes.html">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 13a7.5 7.5 0 0 0 0-2l2-1.5-2-3.5-2.4 1a7.5 7.5 0 0 0-1.7-1L15 3h-6l-.4 3a7.5 7.5 0 0 0-1.7 1l-2.4-1-2 3.5 2 1.5a7.5 7.5 0 0 0 0 2l-2 1.5 2 3.5 2.4-1a7.5 7.5 0 0 0 1.7 1L9 21h6l.4-3a7.5 7.5 0 0 0 1.7-1l2.4 1 2-3.5z"/></svg>
+          <span>Configurações</span>
+        </a>
+      </nav>
+
+      <button class="profile-button" type="button" aria-label="Abrir opções do perfil" aria-haspopup="menu" aria-expanded="false" data-profile-menu-toggle>
+        <span class="avatar avatar-sidebar" data-profile-avatar>AH</span>
+        <span class="profile-copy"><strong data-profile-name>Arthur Holanda</strong><small>Usuário</small></span>
+        <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5"/></svg>
+      </button>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <form class="search" role="search" action="#">
+          <label class="visually-hidden" for="site-search">Buscar tickets</label>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16 16 4 4"/></svg>
+          <input id="site-search" type="search" placeholder="Buscar por palavras-chave, número do ticket, assunto...">
+          <kbd>⌘ K</kbd>
+        </form>
+        <div class="topbar-actions">
+          <a class="icon-button notification-button" href="TelaNotificacoes.html" aria-label="Notificações, 2 não lidas">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg>
+            <span class="notification-dot"></span>
+          </a>
+          <button class="avatar avatar-top" type="button" aria-label="Perfil" aria-haspopup="menu" aria-expanded="false" data-profile-avatar data-profile-menu-toggle>AH</button>
+        </div>
+      </header>
+
+      <div class="dashboard-layout">
+        <div class="dashboard-main">
+          <section class="welcome-card" aria-labelledby="welcome-heading">
+            <div class="welcome-copy">
+              <p class="eyebrow">SEGUNDA-FEIRA, 24 DE MARÇO DE 2025</p>
+              <h1 id="welcome-heading">Olá, Arthur!</h1>
+              <p class="welcome-lead">Bem-vindo(a) de volta.</p>
+              <p>Aqui você pode acompanhar o andamento dos seus tickets, consultar a base de conhecimento e ficar por dentro das últimas atualizações.</p>
+            </div>
+            <div class="welcome-art welcome-art-user" aria-hidden="true"></div>
+          </section>
+
+          <section class="stats-grid" aria-label="Resumo dos tickets">
+            <a class="stat-card" href="TelaTickets.html" aria-label="Ver todos os meus tickets">
+              <span class="stat-icon icon-lime"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7.5A2.5 2.5 0 0 1 7.5 5h9A2.5 2.5 0 0 1 19 7.5V9a3 3 0 0 0 0 6v1.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 5 16.5V15a3 3 0 0 0 0-6z"/><path d="M10 8v2m0 4v2"/></svg></span>
+              <span class="stat-label">Meus tickets</span><strong class="stat-value" data-ticket-total>0</strong><span class="stat-note">Todos os seus chamados</span>
+              <svg class="card-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+            </a>
+            <a class="stat-card" href="TelaTickets.html?status=progress" aria-label="Ver tickets em andamento">
+              <span class="stat-icon icon-blue"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+              <span class="stat-label">Em andamento</span><strong class="stat-value" data-ticket-progress>0</strong><span class="stat-note">Em atendimento pela equipe</span>
+              <svg class="card-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+            </a>
+            <a class="stat-card" href="TelaTickets.html?status=resolved" aria-label="Ver tickets resolvidos">
+              <span class="stat-icon icon-green"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 2.5 2.5L16 9"/></svg></span>
+              <span class="stat-label">Resolvidos</span><strong class="stat-value" data-ticket-resolved>0</strong><span class="stat-note">Finalizados</span>
+              <svg class="card-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+            </a>
+            <a class="stat-card" href="TelaTickets.html?status=waiting" aria-label="Ver tickets aguardando retorno">
+              <span class="stat-icon icon-amber"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16h.01"/></svg></span>
+              <span class="stat-label">Aguardando retorno</span><strong class="stat-value" data-ticket-waiting>0</strong><span class="stat-note">Acompanhe as atualizações</span>
+              <svg class="card-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+            </a>
+          </section>
+
+          <section class="panel tickets-panel" aria-labelledby="tickets-heading">
+            <div class="panel-heading">
+              <div><h2 id="tickets-heading">Seus últimos tickets</h2><p>Acompanhe as atualizações mais recentes</p></div>
+              <a class="text-link" href="TelaTickets.html">Ver todos <span aria-hidden="true">→</span></a>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th scope="col">ID</th><th scope="col">Assunto</th><th scope="col">Categoria</th><th scope="col">Status</th><th scope="col">Data</th><th><span class="visually-hidden">Abrir ticket</span></th></tr></thead>
+                <tbody id="dashboard-ticket-rows"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <aside class="tip-card" aria-labelledby="tip-heading">
+            <div class="tip-copy"><h2 id="tip-heading">Dica do dia</h2><p>Antes de abrir um ticket, verifique se sua dúvida já está na Base de Conhecimento.</p><small>Você pode encontrar soluções rápidas e evitar filas de atendimento.</small></div>
+            <a class="button button-dark" href="TelaConhecimento.html">Acessar base <span aria-hidden="true">→</span></a>
+          </aside>
+        </div>
+
+        <aside class="dashboard-aside" aria-label="Informações úteis">
+          <section class="follow-card">
+            <div><h2>Acompanhe seus tickets</h2><p>Veja o status e o histórico dos seus chamados.</p><a class="button button-light" href="TelaTickets.html">Meus tickets <span aria-hidden="true">→</span></a></div>
+          </section>
+
+          <section class="panel categories-panel" aria-labelledby="categories-heading">
+            <div class="panel-heading"><div><h2 id="categories-heading">Categorias mais comuns</h2></div></div>
+            <nav class="category-list" aria-label="Categorias de atendimento">
+              <a class="category-item" href="TelaConhecimento.html?category=access"><span class="category-icon cat-blue"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M5.5 20a6.5 6.5 0 0 1 13 0z"/></svg></span><span><strong>Acesso e Permissões</strong><small>Problemas de login, senhas e acessos</small></span><svg class="category-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a>
+              <a class="category-item" href="TelaConhecimento.html?category=systems"><span class="category-icon cat-amber"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 9 5-9 5-9-5zM3 8v9l9 5 9-5V8M12 13v9"/></svg></span><span><strong>Sistemas e Aplicações</strong><small>Erros, bugs e dúvidas sobre sistemas</small></span><svg class="category-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a>
+              <a class="category-item" href="TelaConhecimento.html?category=equipment"><span class="category-icon cat-green"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="12" rx="2"/><path d="M8 21h8m-4-4.5V21m-3-9 2 2 4-4"/></svg></span><span><strong>Equipamentos</strong><small>Computadores, periféricos e rede</small></span><svg class="category-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a>
+              <a class="category-item" href="TelaConhecimento.html?category=requests"><span class="category-icon cat-cyan"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5h12A1.5 1.5 0 0 1 19.5 5v14L16 17l-4 2-4-2-3.5 2V5A1.5 1.5 0 0 1 6 3.5Z"/><path d="M9 8h6m-6 4h6"/></svg></span><span><strong>Solicitações</strong><small>Novos acessos, alterações e outros pedidos</small></span><svg class="category-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a>
+              <a class="category-item" href="TelaConhecimento.html?category=other"><span class="category-icon cat-pink"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.6 2.6 0 1 1 4.5 1.8c-1.2 1.1-2 1.4-2 3m0 3h.01"/></svg></span><span><strong>Outros</strong><small>Dúvidas gerais</small></span><svg class="category-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a>
+            </nav>
+          </section>
+
+          <section class="help-card" aria-labelledby="help-heading">
+            <div class="help-copy"><h2 id="help-heading">Precisa de ajuda?</h2><p>Nossa equipe está sempre disponível para te atender. Abra um ticket e nós cuidamos do resto!</p><a class="button button-lime" href="TelaNovoTicket.html">Abrir um ticket <span aria-hidden="true">→</span></a></div>
+          </section>
+        </aside>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#073840">
+  <script src="ChamoApi.js"></script>
+  <script src="ControleAcesso.js"></script>
+  <title>Configurações — Portal de atendimento</title>
+  <link rel="stylesheet" href="TelaInicial.css">
+  <link rel="stylesheet" href="TelaConfiguracoes.css">
+  <link rel="stylesheet" href="TemaEscuro.css">
+  <script src="Preferencias.js" defer></script>
+  <script src="Perfil.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Navegação principal">
+      <div class="sidebar-header">
+        <a class="sidebar-brand" href="TelaInicial.html" aria-label="Chamô — página inicial">
+          <img class="brand-image brand-logo brand-light" src="assets/brand/chamo-wordmark-green.png" alt="">
+          <img class="brand-image brand-logo brand-dark" src="assets/brand/chamo-wordmark-light.png" alt="">
+          <img class="brand-image brand-mark brand-light" src="assets/brand/chamo-icon-green.png" alt="">
+          <img class="brand-image brand-mark brand-dark" src="assets/brand/chamo-icon-light.png" alt="">
+        </a>
+        <button class="sidebar-toggle" type="button" aria-label="Recolher barra lateral" aria-expanded="true" title="Recolher barra lateral">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6M20 6v12"/></svg>
+        </button>
+      </div>
+
+      <nav class="main-nav" aria-label="Menu">
+        <a class="nav-link" href="TelaInicial.html">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg>
+          <span>Início</span>
+        </a>
+        <a class="nav-link" href="TelaTickets.html">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3h6a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1h-6M10 17l5-5-5-5M15 12H3"/></svg>
+          <span>Meus Tickets</span>
+        </a>
+        <a class="nav-link" href="TelaConhecimento.html">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zM8 3v18M16 8h-4M16 12h-4"/></svg>
+          <span>Base de Conhecimento</span>
+        </a>
+        <a class="nav-link" href="TelaNotificacoes.html">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg>
+          <span>Notificações</span><span class="nav-count">2</span>
+        </a>
+        <a class="nav-link is-active" href="TelaConfiguracoes.html" aria-current="page">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 13a7.5 7.5 0 0 0 0-2l2-1.5-2-3.5-2.4 1a7.5 7.5 0 0 0-1.7-1L15 3h-6l-.4 3a7.5 7.5 0 0 0-1.7 1l-2.4-1-2 3.5 2 1.5a7.5 7.5 0 0 0 0 2l-2 1.5 2 3.5 2.4-1a7.5 7.5 0 0 0 1.7 1L9 21h6l.4-3a7.5 7.5 0 0 0 1.7-1l2.4 1 2-3.5z"/></svg>
+          <span>Configurações</span>
+        </a>
+      </nav>
+
+      <button class="profile-button" type="button" aria-label="Abrir opções do perfil" aria-haspopup="menu" aria-expanded="false" data-profile-menu-toggle>
+        <span class="avatar avatar-sidebar" data-profile-avatar>AH</span>
+        <span class="profile-copy"><strong data-profile-name>Arthur Holanda</strong><small>Usuário</small></span>
+        <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5"/></svg>
+      </button>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <form class="search" role="search" action="#">
+          <label class="visually-hidden" for="site-search">Buscar no portal</label>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16 16 4 4"/></svg>
+          <input id="site-search" type="search" placeholder="Buscar por palavras-chave, número do ticket, assunto...">
+          <kbd>⌘ K</kbd>
+        </form>
+        <div class="topbar-actions">
+          <a class="icon-button notification-button" href="TelaNotificacoes.html" aria-label="Notificações, 2 não lidas">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg>
+            <span class="notification-dot"></span>
+          </a>
+          <button class="avatar avatar-top" type="button" aria-label="Perfil" aria-haspopup="menu" aria-expanded="false" data-profile-avatar data-profile-menu-toggle>AH</button>
+        </div>
+      </header>
+
+      <div class="settings-page">
+        <nav class="breadcrumbs" aria-label="Trilha de navegação">
+          <a href="TelaInicial.html">Início</a><span aria-hidden="true">/</span><span aria-current="page">Configurações</span>
+        </nav>
+        <header class="settings-heading">
+          <p class="eyebrow">PERSONALIZE SUA EXPERIÊNCIA</p>
+          <h1 id="settings-title">Configurações</h1>
+          <p>Escolha como prefere visualizar e navegar pelo portal.</p>
+        </header>
+
+        <div class="settings-tabs" role="tablist" aria-label="Seções das configurações">
+          <button class="settings-tab is-active" id="visual-tab" type="button" role="tab" aria-selected="true" aria-controls="visual-panel" tabindex="0">Personalização visual</button>
+          <button class="settings-tab" id="profile-tab" type="button" role="tab" aria-selected="false" aria-controls="profile-panel" tabindex="-1">Meu perfil</button>
+        </div>
+
+        <section class="settings-tab-panel" id="visual-panel" role="tabpanel" aria-labelledby="visual-tab">
+        <section class="panel settings-section visual-settings-section" aria-labelledby="visual-title">
+          <div class="settings-section-heading">
+            <span class="settings-section-icon appearance-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M12 7h4a2 2 0 0 1 0 4h-4M12 15h5a2 2 0 0 1 0 4h-5"/></svg>
+            </span>
+            <div><h2 id="visual-title">Personalização visual</h2><p>Escolha o tema e a tipografia do portal. Confirme para salvar suas alterações.</p></div>
+          </div>
+
+          <section class="visual-settings-group" aria-labelledby="appearance-title">
+            <div class="visual-settings-heading">
+              <h3 id="appearance-title">Tema de cores</h3>
+              <p>Selecione o tema usado nas páginas do portal.</p>
+            </div>
+            <fieldset class="theme-options">
+              <legend class="visually-hidden">Tema de cores</legend>
+              <label class="theme-option">
+                <input type="radio" name="theme" value="light">
+                <span class="theme-preview light-preview" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="theme-option-copy"><strong>Modo claro</strong><small>Fundo claro e conteúdo arejado</small></span>
+                <span class="theme-radio" aria-hidden="true"></span>
+              </label>
+              <label class="theme-option">
+                <input type="radio" name="theme" value="dark">
+                <span class="theme-preview dark-preview" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="theme-option-copy"><strong>Modo escuro</strong><small>Superfícies escuras e contraste suave</small></span>
+                <span class="theme-radio" aria-hidden="true"></span>
+              </label>
+            </fieldset>
+          </section>
+
+          <section class="visual-settings-group" aria-labelledby="font-style-title">
+            <div class="visual-settings-heading">
+              <h3 id="font-style-title">Estilo de fonte</h3>
+              <p>Escolha a tipografia usada em todo o portal.</p>
+            </div>
+            <fieldset class="font-style-options">
+              <legend class="visually-hidden">Estilo de fonte</legend>
+              <label class="font-style-option">
+                <input type="radio" name="font-style" value="creative">
+                <span class="font-style-copy creative-font-preview">
+                  <strong>Creative</strong>
+                  <span>Righteous + Nunito</span>
+                  <small>Expressivo e acolhedor</small>
+                </span>
+                <span class="theme-radio" aria-hidden="true"></span>
+              </label>
+              <label class="font-style-option">
+                <input type="radio" name="font-style" value="tech">
+                <span class="font-style-copy tech-font-preview">
+                  <strong>Tech</strong>
+                  <span>Poppins Extrabold + Inter</span>
+                  <small>Moderno e objetivo</small>
+                </span>
+                <span class="theme-radio" aria-hidden="true"></span>
+              </label>
+            </fieldset>
+          </section>
+
+          <div class="visual-settings-actions">
+            <p class="settings-feedback" id="visual-feedback" role="status" aria-live="polite">As alterações aparecem como prévia. Confirme para salvá-las e aplicá-las nas outras páginas.</p>
+            <button class="visual-save-button" id="save-visual-preferences" type="button">Confirmar alterações</button>
+          </div>
+        </section>
+
+        <section class="panel settings-section" aria-labelledby="navigation-title">
+          <div class="settings-section-heading">
+            <span class="settings-section-icon navigation-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16M14 9h3M14 13h3"/></svg>
+            </span>
+            <div><h2 id="navigation-title">Navegação</h2><p>Deixe mais espaço para o conteúdo recolhendo a barra lateral.</p></div>
+          </div>
+          <div class="navigation-setting">
+            <div><strong>Barra lateral compacta</strong><p>Mostra os ícones do menu e oculta os rótulos.</p></div>
+            <button class="sidebar-setting-button" id="sidebar-setting-toggle" type="button" aria-pressed="false">
+              <span class="sidebar-setting-state">Ativar</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6M20 6v12"/></svg>
+            </button>
+          </div>
+          <p class="settings-feedback">Você também pode recolher ou expandir o menu pelo botão quadrado no topo da barra lateral.</p>
+        </section>
+
+        <aside class="settings-note">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg>
+          <p>As preferências ficam salvas neste navegador e são aplicadas às páginas do portal.</p>
+        </aside>
+        </section>
+
+        <section class="settings-tab-panel profile-panel" id="profile-panel" role="tabpanel" aria-labelledby="profile-tab" hidden>
+          <form class="panel settings-section profile-settings-section" id="profile-form">
+            <div class="settings-section-heading">
+              <span class="settings-section-icon profile-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+              </span>
+              <div><h2>Personalização do perfil</h2><p>Atualize as informações exibidas no portal.</p></div>
+            </div>
+
+            <div class="profile-photo-row">
+              <div class="profile-photo-preview avatar" id="profile-photo-preview" aria-label="Prévia da foto do perfil">AH</div>
+              <div class="profile-photo-actions">
+                <strong>Foto de perfil</strong>
+                <p>Imagem PNG, JPG, GIF ou WebP. Até 1 MB.</p>
+                <div>
+                  <label class="profile-upload-button" for="profile-photo">Escolher foto</label>
+                  <input class="visually-hidden" id="profile-photo" type="file" accept="image/png,image/jpeg,image/gif,image/webp">
+                  <button class="profile-remove-photo" id="remove-profile-photo" type="button">Remover foto</button>
+                </div>
+                <p class="profile-photo-error" id="profile-photo-error" role="status" aria-live="polite"></p>
+              </div>
+            </div>
+
+            <div class="profile-fields">
+              <label class="profile-field" for="profile-name">
+                <span>Nome completo <b aria-hidden="true">*</b></span>
+                <input id="profile-name" name="name" type="text" maxlength="80" autocomplete="name" required>
+              </label>
+              <label class="profile-field" for="profile-email">
+                <span>E-mail</span>
+                <input id="profile-email" name="email" type="email" maxlength="120" autocomplete="email" placeholder="voce@empresa.com">
+              </label>
+              <label class="profile-field" for="profile-phone">
+                <span>Telefone</span>
+                <input id="profile-phone" name="phone" type="tel" maxlength="30" autocomplete="tel" placeholder="(00) 00000-0000">
+              </label>
+            </div>
+
+            <section class="password-settings" aria-labelledby="password-title">
+              <div>
+                <h3 id="password-title">Senha</h3>
+                <p>Você pode alterar a senha da conta fictícia. A senha é armazenada localmente como hash; não use uma senha real.</p>
+              </div>
+              <fieldset>
+                <label class="profile-field" for="profile-current-password"><span>Senha atual</span><input id="profile-current-password" type="password" autocomplete="current-password" placeholder="Digite a senha atual"></label>
+                <label class="profile-field" for="profile-new-password"><span>Nova senha</span><input id="profile-new-password" type="password" autocomplete="new-password" minlength="12" maxlength="200" placeholder="Mínimo de 12 caracteres"></label>
+                <label class="profile-field" for="profile-confirm-password"><span>Confirmar nova senha</span><input id="profile-confirm-password" type="password" autocomplete="new-password" minlength="12" maxlength="200" placeholder="Repita a nova senha"></label>
+              </fieldset>
+            </section>
+
+            <div class="profile-form-footer">
+              <p class="profile-feedback" id="profile-feedback" role="status" aria-live="polite">As informações serão salvas no servidor.</p>
+              <button class="visual-save-button" type="submit">Salvar perfil</button>
+            </div>
+          </form>
+        </section>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

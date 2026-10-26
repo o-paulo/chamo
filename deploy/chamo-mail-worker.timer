@@ -1,0 +1,10 @@
+[Unit]
+Description=Process Chamô email queue periodically
+
+[Timer]
+OnBootSec=1min
+OnUnitActiveSec=1min
+Unit=chamo-mail-worker.service
+
+[Install]
+WantedBy=timers.target
