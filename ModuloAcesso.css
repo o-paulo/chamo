@@ -17,7 +17,7 @@
 .admin-welcome-eyebrow { margin: 0 0 9px; color: #43816a; font-size: 9px; font-weight: 800; letter-spacing: 1.3px; }
 .admin-welcome h1 { margin: 0; color: #124c4b; font: 800 clamp(25px, 3vw, 36px) var(--font-display); letter-spacing: -1.1px; }
 .admin-welcome-copy > p:not(.admin-welcome-eyebrow) { max-width: 560px; margin: 10px 0 19px; color: #557b75; font-size: 12px; line-height: 1.65; }
-.admin-welcome-art { position: absolute; z-index: 1; inset: 14px 24px 14px 50%; background-image: url("assets/illustrations/welcome-admin.png"); background-repeat: no-repeat; background-position: right center; background-size: contain; pointer-events: none; }
+.admin-welcome-art { position: absolute; z-index: 1; inset: 14px 24px 14px 50%; background-image: url("assets/illustrations/welcome-admin.png"); background-repeat: no-repeat; background-position: right center; background-size: auto 145%; pointer-events: none; }
 .admin-overview { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
 .admin-overview .summary-card { min-height: 94px; }
 .summary-pending { background: linear-gradient(115deg, #fff, #f9f8ff); }
