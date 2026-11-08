@@ -1,3 +1,7 @@
+CREATE DATABASE IF NOT EXISTS chamo
+  CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE chamo;
+
 CREATE TABLE IF NOT EXISTS users (
     id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(254) NOT NULL,
@@ -132,3 +136,23 @@ CREATE TABLE IF NOT EXISTS ticket_drafts (
     KEY idx_ticket_drafts_user (user_id, updated_at),
     CONSTRAINT fk_drafts_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT IGNORE INTO app_settings (setting_key, setting_value) VALUES
+    ('sla_first_response_very_high', '2'),
+    ('sla_first_response_high', '4'),
+    ('sla_first_response_medium', '8'),
+    ('sla_first_response_low', '24');
+
+INSERT IGNORE INTO users (id, email, name, role, password_hash, phone, is_active, session_version, created_at) VALUES
+    (1, 'demo@chamo.com', 'Arthur Holanda', 'user', '$2y$10$NDMiunrNsUWJUk7ocnpVO.c0mQiuAR4xdc4GbbqCtWc0I/qAzP426', '5511990000001', 1, 1, '2026-10-25T09:00:00-03:00'),
+    (2, 'atendente@chamo.sup.com', 'Alex Silva', 'attendant', '$2y$10$ofLEP.E4711m.qygVpMhm.c6jLEgUpPiOhf6XRwRX5nBK1A9Ke9CW', '5511990000002', 1, 1, '2026-10-25T09:00:00-03:00'),
+    (3, 'admin@chamo.adm.com', 'Equipe Administrativa', 'admin', '$2y$10$ustyE8R9rWAT2tcEnjaz4OuqpSQb79.j0TJGwFNrBjWEOEnRyMH0C', '5511990000003', 1, 1, '2026-10-25T09:00:00-03:00'),
+    (4, 'atendente@chamo.com', 'Alex Silva', 'attendant', '$2y$10$ofLEP.E4711m.qygVpMhm.c6jLEgUpPiOhf6XRwRX5nBK1A9Ke9CW', '5511990000002', 1, 1, '2026-10-25T09:00:00-03:00'),
+    (5, 'admin@chamo.com', 'Equipe Administrativa', 'admin', '$2y$10$ustyE8R9rWAT2tcEnjaz4OuqpSQb79.j0TJGwFNrBjWEOEnRyMH0C', '5511990000003', 1, 1, '2026-10-25T09:00:00-03:00');
+
+INSERT IGNORE INTO tickets (id, ticket_no, user_id, title, error_type, department, category, classification, severity, priority, description, status, assigned_to, resolved_by, created_at, updated_at, resolved_at) VALUES
+    (1, 'CH-5101', 1, 'Falha ao acessar o sistema de estoque', 'Software', 'Operações', 'Sistemas e Aplicações', 'Incidente', 'Alto', 'high', 'O sistema exibe uma mensagem de erro ao entrar na área de estoque. Já tentei novamente e o problema continua.', 'progress', 2, NULL, '2026-10-24T09:00:00-03:00', '2026-10-24T09:00:00-03:00', NULL),
+    (2, 'CH-5102', 1, 'Acesso ao painel de relatórios', 'Acesso / Conta', 'Financeiro', 'Acesso e Permissões', 'Solicitação de serviço', 'Moderado', 'medium', 'Preciso consultar os relatórios mensais, mas meu perfil não mostra essa opção.', 'waiting', 2, NULL, '2026-10-23T09:00:00-03:00', '2026-10-23T09:00:00-03:00', NULL),
+    (3, 'CH-5103', 1, 'Impressora do setor sem conexão', 'Hardware', 'Recursos Humanos', 'Equipamentos', 'Incidente', 'Alto', 'high', 'A impressora compartilhada aparece como desconectada para toda a equipe do setor.', 'unassigned', NULL, NULL, '2026-10-25T09:00:00-03:00', '2026-10-25T09:00:00-03:00', NULL),
+    (4, 'CH-5104', 1, 'Instalação de aplicativo de videoconferência', 'Software', 'Comercial', 'Solicitações', 'Solicitação de serviço', 'Baixo', 'low', 'Solicito a instalação do aplicativo aprovado para reuniões remotas neste computador.', 'unassigned', NULL, NULL, '2026-10-22T09:00:00-03:00', '2026-10-22T09:00:00-03:00', NULL),
+    (5, 'CH-5105', 1, 'Dúvida sobre o sistema de ponto', 'Software', 'Recursos Humanos', 'Sistemas e Aplicações', 'Dúvida', 'Moderado', 'medium', 'Preciso de orientação para consultar o espelho de ponto mensal.', 'resolved', NULL, 2, '2026-10-21T09:00:00-03:00', '2026-10-21T09:00:00-03:00', '2026-10-21T09:00:00-03:00');

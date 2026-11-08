@@ -68,7 +68,15 @@ if (database_driver() === 'mysql') {
         if (!chmod($databaseBackup, 0600)) {
             throw new RuntimeException('Não foi possível proteger o arquivo de backup MySQL.');
         }
-        write_backup_contents($handle, "SET FOREIGN_KEY_CHECKS=0;\n{$schema}\n");
+        $ddlStatements = [];
+        foreach (array_filter(array_map('trim', explode(';', $schema))) as $statement) {
+            $clean = trim((string) preg_replace('/^\s*(?:--[^\r\n]*\r?\n)+\s*/', '', $statement));
+            if (preg_match('/^CREATE\s+TABLE\b/i', $clean)) {
+                $ddlStatements[] = $clean . ';';
+            }
+        }
+        $ddlSchema = implode("\n\n", $ddlStatements);
+        write_backup_contents($handle, "SET FOREIGN_KEY_CHECKS=0;\n{$ddlSchema}\n");
         $pdo->exec('SET TRANSACTION ISOLATION LEVEL REPEATABLE READ');
         $pdo->beginTransaction();
         foreach ([
