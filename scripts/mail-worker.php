@@ -101,7 +101,7 @@ while ($sent + $failed < $batchSize) {
     } catch (Throwable $error) {
         $message = mb_substr($error->getMessage(), 0, 500);
         $pdo->prepare(
-            'UPDATE mail_queue SET last_error = ?, body = CASE WHEN attempts >= 5 THEN "" ELSE body END WHERE id = ?'
+            "UPDATE mail_queue SET last_error = ?, body = CASE WHEN attempts >= 5 THEN '' ELSE body END WHERE id = ?"
         )->execute([$message, (int) $queued['id']]);
         error_log('Falha ao enviar e-mail da fila ' . (int) $queued['id'] . ': ' . $message);
         fwrite(STDERR, "Falha no e-mail " . (int) $queued['id'] . ": {$message}\n");

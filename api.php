@@ -3,6 +3,58 @@ declare(strict_types=1);
 
 const STORAGE_DIR = __DIR__ . DIRECTORY_SEPARATOR . 'storage';
 
+function load_environment(): void
+{
+    static $loaded = false;
+    if ($loaded) {
+        return;
+    }
+    $loaded = true;
+
+    $envFile = getenv('CHAMO_ENV_FILE');
+    $envPath = is_string($envFile) && trim($envFile) !== ''
+        ? trim($envFile)
+        : __DIR__ . DIRECTORY_SEPARATOR . '.env';
+    if (is_file($envPath) && is_readable($envPath)) {
+        $lines = file($envPath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) ?: [];
+        foreach ($lines as $line) {
+            $trimmed = trim($line);
+            if ($trimmed === '' || str_starts_with($trimmed, '#') || !str_contains($trimmed, '=')) {
+                continue;
+            }
+            [$key, $value] = explode('=', $trimmed, 2);
+            $key = trim($key);
+            $value = trim($value);
+            if ($key === '' || !preg_match('/\A[A-Z0-9_]+\z/', $key)) {
+                continue;
+            }
+            if ((str_starts_with($value, '"') && str_ends_with($value, '"'))
+                || (str_starts_with($value, "'") && str_ends_with($value, "'"))) {
+                $value = substr($value, 1, -1);
+            }
+            if (getenv($key) === false) {
+                putenv("{$key}={$value}");
+            }
+        }
+    }
+
+    $configPath = __DIR__ . DIRECTORY_SEPARATOR . 'config.php';
+    if (is_file($configPath) && is_readable($configPath)) {
+        $defaults = require $configPath;
+        if (is_array($defaults)) {
+            foreach ($defaults as $key => $value) {
+                if (is_string($key) && preg_match('/\A[A-Z0-9_]+\z/', $key)
+                    && (is_scalar($value) || $value === null)
+                    && getenv($key) === false) {
+                    putenv("{$key}=" . (string) $value);
+                }
+            }
+        }
+    }
+}
+
+load_environment();
+
 function storage_directory(): string
 {
     $configured = getenv('CHAMO_STORAGE');
@@ -18,7 +70,7 @@ function database_file(): string
 
 function database_driver(): string
 {
-    $driver = strtolower(trim((string) (getenv('CHAMO_DB_DRIVER') ?: 'sqlite')));
+    $driver = strtolower(trim((string) (getenv('CHAMO_DB_DRIVER') ?: 'mysql')));
     if (!in_array($driver, ['sqlite', 'mysql'], true)) {
         throw new RuntimeException('CHAMO_DB_DRIVER deve ser sqlite ou mysql.');
     }
@@ -78,8 +130,8 @@ function database(): PDO
     if (database_driver() === 'mysql') {
         $host = trim((string) (getenv('CHAMO_DB_HOST') ?: '127.0.0.1'));
         $port = filter_var(getenv('CHAMO_DB_PORT') ?: '3306', FILTER_VALIDATE_INT);
-        $name = trim((string) (getenv('CHAMO_DB_NAME') ?: ''));
-        $username = trim((string) (getenv('CHAMO_DB_USER') ?: ''));
+        $name = trim((string) (getenv('CHAMO_DB_NAME') ?: 'chamo'));
+        $username = trim((string) (getenv('CHAMO_DB_USER') ?: 'root'));
         $password = getenv('CHAMO_DB_PASSWORD');
         $password = is_string($password) ? $password : '';
         if (!preg_match('/\A[a-zA-Z0-9.-]+\z/', $host)
@@ -87,12 +139,25 @@ function database(): PDO
             || !preg_match('/\A[a-zA-Z0-9_]+\z/', $name) || $username === '') {
             throw new RuntimeException('Configure CHAMO_DB_HOST, CHAMO_DB_PORT, CHAMO_DB_NAME e CHAMO_DB_USER para MySQL.');
         }
-        $pdo = new PDO(
-            "mysql:host={$host};port={$port};dbname={$name};charset=utf8mb4",
-            $username,
-            $password,
-            $options
-        );
+        $dsn = "mysql:host={$host};port={$port};dbname={$name};charset=utf8mb4";
+        try {
+            $pdo = new PDO($dsn, $username, $password, $options);
+        } catch (PDOException $error) {
+            if ((int) ($error->errorInfo[1] ?? 0) !== 1049) {
+                throw $error;
+            }
+            $bootstrapPdo = new PDO(
+                "mysql:host={$host};port={$port};charset=utf8mb4",
+                $username,
+                $password,
+                $options
+            );
+            $bootstrapPdo->exec(
+                "CREATE DATABASE IF NOT EXISTS `{$name}` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci"
+            );
+            $bootstrapPdo = null;
+            $pdo = new PDO($dsn, $username, $password, $options);
+        }
         $expectedTables = [
             'users', 'tickets', 'ticket_messages', 'ticket_attachments', 'ticket_ratings',
             'login_attempts', 'password_reset_tokens', 'audit_log', 'mail_queue',
@@ -107,7 +172,11 @@ function database(): PDO
                 throw new RuntimeException('Não foi possível ler o esquema MySQL do portal.');
             }
             foreach (array_filter(array_map('trim', explode(';', $schema))) as $statement) {
-                $pdo->exec($statement);
+                $clean = trim((string) preg_replace('/^\s*(?:--[^\r\n]*\r?\n)+\s*/', '', $statement));
+                if (!preg_match('/^CREATE\s+TABLE\b/i', $clean)) {
+                    continue;
+                }
+                $pdo->exec($clean);
             }
         }
         foreach (['very_high' => '2', 'high' => '4', 'medium' => '8', 'low' => '24'] as $priority => $hours) {
@@ -264,17 +333,30 @@ function seed_database(PDO $pdo): void
     if ($demoAccountsEnabled === false) {
         $demoAccountsEnabled = getenv('APP_ENV') === 'production' ? '0' : '1';
     }
-    if ($demoAccountsEnabled === '1' && (int) $pdo->query('SELECT COUNT(*) FROM users')->fetchColumn() === 0) {
+    if ($demoAccountsEnabled === '1') {
         $accounts = [
             ['demo@chamo.com', 'Arthur Holanda', 'user', 'Chamo123!', '5511990000001'],
             ['atendente@chamo.sup.com', 'Alex Silva', 'attendant', 'Atendente123!', '5511990000002'],
             ['admin@chamo.adm.com', 'Equipe Administrativa', 'admin', 'Admin123!', '5511990000003'],
         ];
-        $insert = $pdo->prepare(
-            'INSERT INTO users (email, name, role, password_hash, phone, created_at) VALUES (?, ?, ?, ?, ?, ?)'
+        if (getenv('APP_ENV') !== 'testing') {
+            $accounts[] = ['atendente@chamo.com', 'Alex Silva', 'attendant', 'Atendente123!', '5511990000002'];
+            $accounts[] = ['admin@chamo.com', 'Equipe Administrativa', 'admin', 'Admin123!', '5511990000003'];
+        }
+        $existingEmails = array_map(
+            'strtolower',
+            $pdo->query('SELECT email FROM users')->fetchAll(PDO::FETCH_COLUMN)
         );
-        foreach ($accounts as [$email, $name, $role, $password, $phone]) {
-            $insert->execute([$email, $name, $role, password_hash($password, PASSWORD_DEFAULT), $phone, now()]);
+        if (getenv('APP_ENV') !== 'testing' || count($existingEmails) === 0) {
+            $insert = $pdo->prepare(
+                'INSERT INTO users (email, name, role, password_hash, phone, created_at) VALUES (?, ?, ?, ?, ?, ?)'
+            );
+            foreach ($accounts as [$email, $name, $role, $password, $phone]) {
+                if (!in_array(strtolower($email), $existingEmails, true)) {
+                    $insert->execute([$email, $name, $role, password_hash($password, PASSWORD_DEFAULT), $phone, now()]);
+                    $existingEmails[] = strtolower($email);
+                }
+            }
         }
     }
 
@@ -1158,14 +1240,29 @@ function handle_request(): never
         }
         $allowedValues = [
             'errorType' => ['Hardware', 'Software', 'BIOS / Firmware', 'Rede / Internet', 'Acesso / Conta', 'Outro'],
-            'department' => ['Financeiro', 'Operações', 'Comercial', 'Recursos Humanos'],
+            'department' => ['Tecnologia da Informação', 'Financeiro', 'Operações', 'Comercial', 'Recursos Humanos'],
             'category' => ['Acesso e Permissões', 'Sistemas e Aplicações', 'Equipamentos', 'Solicitações', 'Outros'],
             'classification' => ['Incidente', 'Solicitação de serviço', 'Dúvida', 'Alteração'],
         ];
         foreach ($allowedValues as $field => $allowed) {
-            if (!in_array($fields[$field], $allowed, true)) {
-                fail('A classificação do ticket contém uma opção inválida.', 422);
+            $submitted = $fields[$field];
+            if (class_exists('Normalizer')) {
+                $submitted = Normalizer::normalize($submitted, Normalizer::FORM_C) ?: $submitted;
             }
+            $matched = null;
+            foreach ($allowed as $option) {
+                $normalizedOption = class_exists('Normalizer')
+                    ? (Normalizer::normalize($option, Normalizer::FORM_C) ?: $option)
+                    : $option;
+                if (mb_strtolower($submitted, 'UTF-8') === mb_strtolower($normalizedOption, 'UTF-8')) {
+                    $matched = $option;
+                    break;
+                }
+            }
+            if ($matched === null) {
+                fail("A classificação do ticket contém uma opção inválida no campo {$field}: {$fields[$field]}", 422);
+            }
+            $fields[$field] = $matched;
         }
         $priority = match ($fields['severity']) {
             'Baixo' => 'low',
@@ -1202,9 +1299,9 @@ function handle_request(): never
         $pdo->beginTransaction();
         try {
             $insert = $pdo->prepare(
-                'INSERT INTO tickets
+                "INSERT INTO tickets
                  (ticket_no, user_id, title, error_type, department, category, classification, severity, priority, description, status, created_at, updated_at)
-                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, "unassigned", ?, ?)'
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'unassigned', ?, ?)"
             );
             $insert->execute([
                 $ticketNo, (int) $user['id'], $fields['title'], $fields['errorType'],
@@ -1388,6 +1485,16 @@ function handle_request(): never
 }
 
 if (PHP_SAPI !== 'cli') {
+    $sessionSavePath = session_save_path();
+    if ($sessionSavePath === '' || !is_dir($sessionSavePath) || !is_writable($sessionSavePath)) {
+        $fallbackSessions = storage_directory() . DIRECTORY_SEPARATOR . 'sessions';
+        if (!is_dir($fallbackSessions)) {
+            @mkdir($fallbackSessions, 0700, true);
+        }
+        if (is_dir($fallbackSessions) && is_writable($fallbackSessions)) {
+            session_save_path($fallbackSessions);
+        }
+    }
     ini_set('session.use_strict_mode', '1');
     ini_set('session.use_only_cookies', '1');
     session_set_cookie_params([
