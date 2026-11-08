@@ -1240,14 +1240,29 @@ function handle_request(): never
         }
         $allowedValues = [
             'errorType' => ['Hardware', 'Software', 'BIOS / Firmware', 'Rede / Internet', 'Acesso / Conta', 'Outro'],
-            'department' => ['Financeiro', 'Operações', 'Comercial', 'Recursos Humanos'],
+            'department' => ['Tecnologia da Informação', 'Financeiro', 'Operações', 'Comercial', 'Recursos Humanos'],
             'category' => ['Acesso e Permissões', 'Sistemas e Aplicações', 'Equipamentos', 'Solicitações', 'Outros'],
             'classification' => ['Incidente', 'Solicitação de serviço', 'Dúvida', 'Alteração'],
         ];
         foreach ($allowedValues as $field => $allowed) {
-            if (!in_array($fields[$field], $allowed, true)) {
-                fail('A classificação do ticket contém uma opção inválida.', 422);
+            $submitted = $fields[$field];
+            if (class_exists('Normalizer')) {
+                $submitted = Normalizer::normalize($submitted, Normalizer::FORM_C) ?: $submitted;
             }
+            $matched = null;
+            foreach ($allowed as $option) {
+                $normalizedOption = class_exists('Normalizer')
+                    ? (Normalizer::normalize($option, Normalizer::FORM_C) ?: $option)
+                    : $option;
+                if (mb_strtolower($submitted, 'UTF-8') === mb_strtolower($normalizedOption, 'UTF-8')) {
+                    $matched = $option;
+                    break;
+                }
+            }
+            if ($matched === null) {
+                fail("A classificação do ticket contém uma opção inválida no campo {$field}: {$fields[$field]}", 422);
+            }
+            $fields[$field] = $matched;
         }
         $priority = match ($fields['severity']) {
             'Baixo' => 'low',
